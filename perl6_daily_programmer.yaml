@@ -1,0 +1,659 @@
+4k8m02:
+  solutions: []
+  title: '[2016-05-20] Challenge #267 [Hard] IDDQD'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4k8m02/20160520_challenge_267_hard_iddqd/
+4knivr:
+  solutions: []
+  title: '[2016-05-23] Challenge #268 [Easy] Network and Cards: Part 1, The network'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4knivr/20160523_challenge_268_easy_network_and_cards/
+4kz0e0:
+  solutions: []
+  title: '[2016-05-25] Challenge #268 [Intermediate] Network and Cards: Part 2, The
+    cards'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4kz0e0/20160525_challenge_268_intermediate_network_and/
+4lavv6:
+  solutions: []
+  title: '[2016-05-27] Challenge #268 [Hard] Network and Cards: Part 3, The cheaters'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4lavv6/20160527_challenge_268_hard_network_and_cards/
+4lpygb:
+  solutions: []
+  title: '[2016-05-30] Challenge #269 [Easy] BASIC Formatting'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4lpygb/20160530_challenge_269_easy_basic_formatting/
+4m3ddb:
+  solutions: []
+  title: '[2016-06-01] Challenge #269 [Intermediate] Mirror encryption'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4m3ddb/20160601_challenge_269_intermediate_mirror/
+4msu2x:
+  solutions: []
+  title: 'Challenge #270 [Easy] Transpose the input text'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4msu2x/challenge_270_easy_transpose_the_input_text/
+4n6hc2:
+  solutions:
+  - solution_body: "Not surprised or even sad to see no Perl here. But Perl 6, now\
+      \ that's a different story. I have only been at it for a few days, but I am\
+      \ already completely head over heels, and one would really be unwise to dismiss\
+      \ it on grounds of its historical linkage with the predecessor.\n\n(One caveat:\
+      \ it's *painfully* slow now. But it will be faster...someday. And then it will\
+      \ fix the world)\n\n    my $text = slurp.lc.subst(/<[\\S] - [a..z]>/, \"\",\
+      \ :g).words;\n\n    my %next;\n    for $text.rotor(3 => -2) -> ($a, $b, $c)\
+      \ { %next{ \"{$a}+{$b}\" }{ $c }++; }\n\n    my ($first, $second) = %next.pick.key.split(\"\
+      +\");\n    my @chain = $first, $second, -> $a, $b { %next{ \"{$a}+{$b}\" }.roll.key\
+      \ } ... *;\n    say @chain[^1000].join(\" \");\n "
+    solution_url: https://www.reddit.com/r/dailyprogrammer/comments/4n6hc2/20160608_challenge_270_intermediate_generating/d44dk7m
+  title: '[2016-06-08] Challenge #270 [Intermediate] Generating Text with Markov Processes'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4n6hc2/20160608_challenge_270_intermediate_generating/
+4nga90:
+  solutions: []
+  title: '[2016-06-10] Challenge #270 [Hard] Alien Invasion Inversion'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4nga90/20160610_challenge_270_hard_alien_invasion/
+4nglg5:
+  solutions: []
+  title: '[Meta] June 2016 Review'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4nglg5/meta_june_2016_review/
+4nvrnx:
+  solutions: []
+  title: '[2016-06-13] Challenge #271 [Easy] Critical Hit'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4nvrnx/20160613_challenge_271_easy_critical_hit/
+4o74p3:
+  solutions:
+  - solution_body: "**Perl6** solution, no bonus\n\n    #Running program with bad\
+      \ arguments produces:\n    #Usage:\n    #  sound.p6 [-w=<Str>] [-o=<Str>] <filename>\n\
+      \    sub MAIN(Str $filename, Str :$w='sine', Str :$o) {\n        my $file =\
+      \ $filename ?? open $filename !! $*IN;\n        my $sample_rate = $file.get.Int;\n\
+      \        my $duration = $file.get.Int;\n\n        # Avaliable waveforms\n  \
+      \      my %waveform = (\n            sine => sub { (sin($^a * 2 * pi)) * 127\
+      \ + 128},\n            square => sub { $^a < .5 ?? 255 !! 0 },\n           \
+      \ triangle => sub { (($^a * 510) - 255).abs },\n            sawtooth => sub\
+      \ { $^a * 255 },\n        );\n\n        my $wave = %waveform{$w};\n        unless\
+      \ $wave {\n            say \"Invalid waveform: $w\";\n            say \"Valid\
+      \ options are: $(%waveform.keys)\";\n            exit(1);\n        }\n\n   \
+      \     # Set output to STDOUT, or the file passed in\n        my $out = $o ??\
+      \ open($o, :bin, :w) !! $*OUT;\n\n        # * can be used as the argument to\
+      \ an anonymous function\n        # Convert frequencies to map of increase per\
+      \ sample\n        my %freq = 'ABCDEFG_'.comb Z=> (440, 493.88, 523.25, 587.33,\
+      \ 659.25, 698.46, 783.99, 0).map: */$sample_rate;\n        my $window = 0;\n\
+      \        my $wave_point = 0;\n        my $t = 1000/$sample_rate;\n        for\
+      \ $file.comb(/<[A .. G _]>/) -> $note {\n            my $step = %freq{$note};\n\
+      \            while $window < $duration {\n                $out.write(Buf.new($wave($wave_point).Int));\n\
+      \                $window += $t;\n                $wave_point = ($wave_point\
+      \ + $step) % 1;\n            }\n            $window %= $duration;\n        }\n\
+      \    }\n"
+    solution_url: https://www.reddit.com/r/dailyprogrammer/comments/4o74p3/20160615_challenge_271_intermediate_making_waves/d4atlfs
+  title: '[2016-06-15] Challenge #271 [Intermediate] Making Waves'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4o74p3/20160615_challenge_271_intermediate_making_waves/
+4ojbgq:
+  solutions: []
+  title: '[2016-06-17] Challenge #271 [Hard] Formatting J code'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4ojbgq/20160617_challenge_271_hard_formatting_j_code/
+4oylbo:
+  solutions: []
+  title: '[2016-06-20] Challenge #272 [Easy] What''s in the bag?'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4oylbo/20160620_challenge_272_easy_whats_in_the_bag/
+4paxp4:
+  solutions: []
+  title: '[2016-06-22] Challenge #272 [Intermediate] Dither that image'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4paxp4/20160622_challenge_272_intermediate_dither_that/
+4pnky5:
+  solutions: []
+  title: '[2016-06-24] Challenge #272 [Hard] Air Pressure router valve - Part 1.'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4pnky5/20160624_challenge_272_hard_air_pressure_router/
+4q35ip:
+  solutions: []
+  title: '[2016-06-27] Challenge #273 [Easy] Getting a degree'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4q35ip/20160627_challenge_273_easy_getting_a_degree/
+4qg2eo:
+  solutions: []
+  title: '[2016-06-29] Challenge #273 [Intermediate] Twist up a message'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4qg2eo/20160629_challenge_273_intermediate_twist_up_a/
+4qt12j:
+  solutions: []
+  title: '[2016-07-01] Challenge #273 [Hard] Elggob - Make a Boggle Layout'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4qt12j/20160701_challenge_273_hard_elggob_make_a_boggle/
+4r8fod:
+  solutions: []
+  title: '[2016-07-04] Challenge #274 [Easy] Gold and Treasure: The Beale Cipher'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4r8fod/20160704_challenge_274_easy_gold_and_treasure_the/
+4riubi:
+  solutions: []
+  title: '[2016-07-06] Challenge #274 [Intermediate] Calculating De Bruijn sequences'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4riubi/20160706_challenge_274_intermediate_calculating/
+4rug59:
+  solutions: []
+  title: "[2016-07-08] Challenge #274 [Hard] \u221E Loop solver"
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4rug59/20160708_challenge_274_hard_loop_solver/
+4savyr:
+  solutions: []
+  title: '[2016-07-11] Challenge #275 [Easy] Splurthian Chemistry 101'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4savyr/20160711_challenge_275_easy_splurthian_chemistry/
+4so25w:
+  solutions: []
+  title: '[2016-07-13] Challenge #275 [Intermediate] Splurthian Chemistry 102'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4so25w/20160713_challenge_275_intermediate_splurthian/
+4t11c3:
+  solutions: []
+  title: '[2016-07-15] Challenge #275 [Hard] Splurthian Chemistry 103'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4t11c3/20160715_challenge_275_hard_splurthian_chemistry/
+4tetif:
+  solutions:
+  - solution_body: "**Perl6** no bonus\n\n    sub rect($word, $len, $w, $h) {\n  \
+      \      for 0 .. $len * $w -> $x {\n            for 0 .. $len * $h -> $y {\n\
+      \                if !($x % $len) || !($y % $len) {\n                    my $ind\
+      \ = ($x + $y) % $word.chars;\n                    print $word.substr($ind, 1);\n\
+      \                }\n                else {\n                    print ' ';\n\
+      \                }\n            }\n            say \"\";\n        }\n    }\n\
+      \n    sub MAIN($word, Int $w, Int $h) {\n        # Creates source string from\
+      \ word: rect => rectce\n        my $str = $word ~ $word.substr(1, $word.chars\
+      \ -2).flip;\n        rect($str, $word.chars - 1, $w, $h);\n    }\n"
+    solution_url: https://www.reddit.com/r/dailyprogrammer/comments/4tetif/20160718_challenge_276_easy_recktangles/d5h693i
+  - solution_body: "**Bonus Hex**\n\n    sub hex($word, $len, $w, $h) {\n        my\
+      \ $diag = $word.chars + $len;\n        for (0 .. $word.chars * $h) >>%>> $word.chars\
+      \ -> $y {\n            print '    .';\n            for (0 .. $word.chars * $w\
+      \ + $len) -> $x {\n                my $xmod = $x % $word.chars;\n          \
+      \      my $off = $x div $word.chars % 2 * $len;\n                my $ymod =\
+      \ ($y + $off) % $word.chars;\n                if ($ymod - $xmod == $len || $ymod\
+      \ + $xmod == $len)\n                    || ($ymod == 0 && $xmod >= $len) {\n\
+      \                    my $ind = ($x + $len) % $word.chars;\n                \
+      \    print $word.substr($ind, 1);\n                }\n                else {\n\
+      \                    print ' ';\n                }\n            }\n        \
+      \    say \"\";\n        }\n    }\n\n    sub MAIN($word, Int $w, Int $h) {\n\
+      \        # Creates source string from word: rect => rectce\n        my $str\
+      \ = $word ~ $word.substr(1, $word.chars -2).flip;\n        hex($str, $word.chars\
+      \ - 1, $w, $h);\n    }\n\nperl6 hex.p6 rect 2 2\n\n    .   rect        r\n \
+      \   .  e    c      e \n    . c      e    c  \n    .t        rect   \n    . c\
+      \      e    c  \n    .  e    c      e \n    .   rect        r\n    .  e    c\
+      \      e \n    . c      e    c  \n    .t        rect   \n    . c      e    c\
+      \  \n    .  e    c      e \n    .   rect        r"
+    solution_url: https://www.reddit.com/r/dailyprogrammer/comments/4tetif/20160718_challenge_276_easy_recktangles/d5hcde4
+  - solution_body: "**Bonus diamonds**\n\n    sub diamond($word, $len, $w, $h) {\n\
+      \        for 0 .. $len * 2 * $w -> $x {\n            for 0 .. $len * 2 * $h\
+      \ -> $y {\n                if ($x + $y) % $word.chars == $len || abs($x - $y)\
+      \ % $word.chars == $len {\n                    my $ind = $x % $word.chars;\n\
+      \                    print $word.substr($ind, 1);\n                }\n     \
+      \           else {\n                    print ' ';\n                }\n    \
+      \        }\n            say \"\";\n        }\n    }\n    sub MAIN($word, Int\
+      \ $w, Int $h) {\n        # Creates source string from word: rect => rectce\n\
+      \        my $str = $word ~ $word.substr(1, $word.chars -2).flip;\n        diamond($str,\
+      \ $word.chars - 1, $w, $h);\n    }\n\nperl6 diamonds.p6 shiny 2 3\n \n    #\
+      \ I have to lead with . so the formatting works, otherwise, it looks terrible\n\
+      \    .    s       s       s    \n    .   h h     h h     h h   \n    .  i  \
+      \ i   i   i   i   i  \n    . n     n n     n n     n \n    .y       y      \
+      \ y       y\n    . n     n n     n n     n \n    .  i   i   i   i   i   i  \n\
+      \    .   h h     h h     h h   \n    .    s       s       s    \n    .   h h\
+      \     h h     h h   \n    .  i   i   i   i   i   i  \n    . n     n n     n\
+      \ n     n \n    .y       y       y       y\n    . n     n n     n n     n \n\
+      \    .  i   i   i   i   i   i  \n    .   h h     h h     h h   \n    .    s\
+      \       s       s    \n\n"
+    solution_url: https://www.reddit.com/r/dailyprogrammer/comments/4tetif/20160718_challenge_276_easy_recktangles/d5h8j2u
+  title: '[2016-07-18] Challenge #276 [Easy] Recktangles'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4tetif/20160718_challenge_276_easy_recktangles/
+4tqy5c:
+  solutions:
+  - solution_body: "**Perl6**\n\n    sub key(@src, @key, &f) {\n        my %data;\n\
+      \        my %agg;\n        for (@key Z @src) -> ($k, $v) {\n            if !(%agg{$k}:exists)\
+      \ {\n                %agg{$k} = %agg.elems;\n            }\n            %data{$k}.push($v);\n\
+      \        }\n        return %data.pairs.map({[$^a.key, &f($^a.value)]}).sort:\
+      \ { %agg{$^a[0]} };\n    }\n\n    sub print_keys(@v, @k, &f) {\n        for\
+      \ key(@v, @k, &f) -> $e {\n            say \"$e[0] $e[1]\";\n        }\n   \
+      \ }\n\n    sub tabular($file, &f) {\n        my (@k, @v);\n        for $file.IO.slurp.comb(/\\\
+      S+/).rotor(2) -> ($k, $v) {\n            @k.push($k);\n            @v.push($v);\n\
+      \        }\n        print_keys(@v, @k, &f);\n    }\n\n    multi MAIN('histogram',\
+      \ $file) {\n        my @v = $file.IO.comb(/\\S+/);\n        print_keys(@v, @v,\
+      \ *.elems);\n    }\n\n    multi MAIN('sum', $file) {\n        tabular($file,\
+      \ &sum);\n    }\n\n    multi MAIN('nub', $file) {\n        tabular($file, *[0]);\n\
+      \    }\n"
+    solution_url: https://www.reddit.com/r/dailyprogrammer/comments/4tqy5c/20160720_challenge_276_intermediate_key_function/d5jx2ao
+  - solution_body: "The 3 mains mean you get this sort of behavior:\n\n    $ perl6\
+      \ key.p6\n    Usage:\n      key.p6 histogram <file>\n      key.p6 sum <file>\n\
+      \      key.p6 nub <file>\n    $ perl6 key.p6 histogram hist.txt\n    5 13\n\
+      \    3 12\n    2 8\n    9 14\n    7 8\n\n"
+    solution_url: https://www.reddit.com/r/dailyprogrammer/comments/4tqy5c/20160720_challenge_276_intermediate_key_function/d5jx7d8
+  title: '[2016-07-20] Challenge #276 [Intermediate] Key function'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4tqy5c/20160720_challenge_276_intermediate_key_function/
+4u3e96:
+  solutions: []
+  title: "[2016-07-22] Challenge #276 [Hard] \u221E Loop solver part 2"
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4u3e96/20160722_challenge_276_hard_loop_solver_part_2/
+4uhqdb:
+  solutions:
+  - solution_body: "**Perl6** with bonus\n\nSolution shows using built-in Rat (rational)\
+      \ type, built-in gcd function, and a custom gcd function. Use of multi subs\
+      \ allows cleanup of if statements.\n\n    sub MAIN(Bool :$bonus) {\n       \
+      \ if (!$bonus) {\n            loop {\n                my ($a, $b) = prompt('').split('\
+      \ ');\n\n                say-join built-in-rat($a, $b);\n                say-join\
+      \ with-gcd($a, $b, &infix:<gcd>);\n                say-join with-gcd($a, $b,\
+      \ &my-gcd);\n            }\n        } else {\n            my %subs;\n      \
+      \      loop {\n                my @in = prompt('').split(' ');\n           \
+      \     say-join($_) with bonus(|@in, %subs);\n            }\n        }\n    }\n\
+      \n    sub built-in-rat($a, $b) { (+$a / +$b).nude; }\n\n    sub with-gcd($a,\
+      \ $b, &gcd-fun) {\n        my $gcd = &gcd-fun(+$a,+$b);\n        (+$a / $gcd,\
+      \ +$b / $gcd);\n    }\n\n    multi sub my-gcd($a, 0) { $a }\n    multi sub my-gcd($a,\
+      \ $b) { my-gcd($b, $a mod $b) }\n\n    multi sub bonus($n, %subs) {\n      \
+      \  %subs{*}:delete;\n        for ^+$n {\n            my ($a, $b) = prompt('').split('\
+      \ ');\n            %subs{$a} = apply($b, %subs);\n        }\n    }\n    multi\
+      \ sub bonus($a, $b, %subs) {\n        my $sub-a = apply($a, %subs);\n      \
+      \  my $sub-b = apply($b, %subs);\n\n        for $sub-a.comb -> $char {\n   \
+      \         if defined $sub-a.index($char) and defined $sub-b.index($char) {\n\
+      \                $sub-a .= subst($char, '', :nth(1));\n                $sub-b\
+      \ .= subst($char, '', :nth(1));\n            }\n        }\n        ($sub-a ||\
+      \ '1', $sub-b || '1')\n    }\n\n    sub say-join(@a) { say @a.join(' ') }\n\n\
+      \    sub apply($a, %subs) {\n        ($a, |%subs.kv).reduce: { $^a.subst($^b,\
+      \ $^c, :g) };\n    }"
+    solution_url: https://www.reddit.com/r/dailyprogrammer/comments/4uhqdb/20160725_challenge_277_easy_simplifying_fractions/d5yru16
+  title: '[2016-07-25] Challenge #277 [Easy] Simplifying fractions'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4uhqdb/20160725_challenge_277_easy_simplifying_fractions/
+4utlaz:
+  solutions: []
+  title: '[2016-07-27] Challenge #277 [Intermediate] Fake coins'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4utlaz/20160727_challenge_277_intermediate_fake_coins/
+4v5h3u:
+  solutions: []
+  title: '[2016-07-29] Challenge #277 [Hard] Trippy Julia fractals'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4v5h3u/20160729_challenge_277_hard_trippy_julia_fractals/
+4vr831:
+  solutions: []
+  title: '[ANN] Only one challenge this week'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4vr831/ann_only_one_challenge_this_week/
+4vrb8n:
+  solutions: []
+  title: '[Weekly #25] Escape the trolls'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4vrb8n/weekly_25_escape_the_trolls/
+4wqzph:
+  solutions: []
+  title: '[2016-08-08] Challenge #278 [Easy/Med] Weave insert Part 1'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4wqzph/20160808_challenge_278_easymed_weave_insert_part_1/
+4xy6i1:
+  solutions: []
+  title: '[2016-08-16] Challenge #279 [Easy] Uuencoding'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4xy6i1/20160816_challenge_279_easy_uuencoding/
+4ybbcz:
+  solutions: []
+  title: '[2016-08-18] Challenge #279 [Intermediate] Text Reflow'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4ybbcz/20160818_challenge_279_intermediate_text_reflow/
+4z04vj:
+  solutions: []
+  title: '[2016-08-22] Challenge #280 [Easy] 0 to 100, Real Quick'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4z04vj/20160822_challenge_280_easy_0_to_100_real_quick/
+4zcly2:
+  solutions: []
+  title: '[2016-08-24] Challenge #280 [Intermediate] Anagram Maker'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4zcly2/20160824_challenge_280_intermediate_anagram_maker/
+4zog32:
+  solutions: []
+  title: '[2016-08-26] Challenge #280 [Hard] Free Flow Solver'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/4zog32/20160826_challenge_280_hard_free_flow_solver/
+504rdh:
+  solutions: []
+  title: '[2016-08-29] Challenge #281 [Easy] Something about bases'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/504rdh/20160829_challenge_281_easy_something_about_bases/
+50hbtp:
+  solutions: []
+  title: '[2016-08-31] Challenge #281 [Intermediate] Dank usernames'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/50hbtp/20160831_challenge_281_intermediate_dank_usernames/
+50s3ax:
+  solutions: []
+  title: '[2016-09-02] Challenge #281 [Hard] Minesweeper Solver'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/50s3ax/20160902_challenge_281_hard_minesweeper_solver/
+5196fi:
+  solutions: []
+  title: '[2016-09-05] Challenge #282 [Easy] Unusual Bases'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5196fi/20160905_challenge_282_easy_unusual_bases/
+51l1j1:
+  solutions: []
+  title: '[2016-09-07] Challenge #282 [Intermediate] The final Quixo move'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/51l1j1/20160907_challenge_282_intermediate_the_final/
+51wg0j:
+  solutions: []
+  title: '[2016-09-09] Challenge #282 [Hard] Hidato'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/51wg0j/20160909_challenge_282_hard_hidato/
+52enht:
+  solutions:
+  - solution_body: "**Perl6**\n\n    sub as-bag($s) {\n        # Get a count of each\
+      \ lower-cased letter (\\w) in the string\n        # Bag is basically a hash\
+      \ of key => count, plus lots of useful methods\n        return $s.lc.comb(/\\\
+      w/).Bag;\n    }\n    for lines() -> $l {\n        # Perl6's regex is a bit different\
+      \ than perl5.  In this case specifically:\n        # [^chars] becomes <-[ chars\
+      \ ]>\n        # The /x flag (whitespace in regex) is on by default\n       \
+      \ # All literal strings are quoted instead of bare\n        if $l ~~ /'\"' (<-[\"\
+      ]> +) '\" ? \"' (<-[ \" ]> +) '\"'/ {\n            if as-bag($0) ~~ as-bag($1)\
+      \ {\n                say qq[\"$0\" is an anagram of \"$1\"];\n            }\n\
+      \            else {\n                say qq[\"$0\" is NOT an anagram of \"$1\"\
+      ];\n            }\n        }\n    }\n"
+    solution_url: https://www.reddit.com/r/dailyprogrammer/comments/52enht/20160912_challenge_283_easy_anagram_detector/d7jrseu
+  - solution_body: "Perl6\n\n    for $input.lines.flatmap: *.split(/ \\s+ \\? \\s+\
+      \ /) -> Str $first, Str $second {\n        $first.lc.comb(/\\w/).sort ~~ $second.lc.comb(/\\\
+      w/).sort\n            ?? say $first ~ \" is an anagram of \"     ~ $second\n\
+      \    \t    !! say $first ~ \" is NOT an anagram of \" ~ $second;\n    }"
+    solution_url: https://www.reddit.com/r/dailyprogrammer/comments/52enht/20160912_challenge_283_easy_anagram_detector/d7n14lw
+  title: '[2016-09-12] Challenge #283 [Easy] Anagram Detector'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/52enht/20160912_challenge_283_easy_anagram_detector/
+5320ey:
+  solutions: []
+  title: '[2016-09-16] Challenge #283 [Hard] Guarding the Coast'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5320ey/20160916_challenge_283_hard_guarding_the_coast/
+53ijnb:
+  solutions:
+  - solution_body: "perl6\n\n    sub MAIN (Str $input) {\n        my @chars = $input.comb;\n\
+      \        \n        my %dict = ('a' .. 'z').map: * => (('a' .. 'z').map: * =>\
+      \ []).hash;\n    \n        for 'example.txt'.IO.lines\xBB.comb -> @chars {\n\
+      \    \t%dict{ @chars.head }{ @chars.tail }.push: @chars[ 1 .. * - 2 ];\n   \
+      \     }\n    \n        for |%dict{ @chars.head }{ @chars.tail } -> @solution\
+      \ {\n    \tsay (@chars.head, |@solution, @chars.tail).join if is_valid(@solution,\
+      \ @chars[ 1 .. *-1 ]);\n        }\n    }\n    \n    sub is_valid(@solution,\
+      \ @chars is copy) {\n        return False if @chars < @solution;\n        my\
+      \ Int $i = 0;\n        for @solution -> Str $s {\n    \t$i = (@chars.first:\
+      \ * eq $s, :k) // return False;\n    \t@chars = @chars[ $i .. *-1 ];\n     \
+      \   }\n        return True;\n    }\n"
+    solution_url: https://www.reddit.com/r/dailyprogrammer/comments/53ijnb/20160919_challenge_284_easy_wandering_fingers/d7y7cis
+  title: '[2016-09-19] Challenge #284 [Easy] Wandering Fingers'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/53ijnb/20160919_challenge_284_easy_wandering_fingers/
+53sw7z:
+  solutions: []
+  title: '[2016-09-21] Challenge #284 [Intermediate] Punch Card Creator'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/53sw7z/20160921_challenge_284_intermediate_punch_card/
+545a7x:
+  solutions: []
+  title: '[2016-09-23] Challenge #284 [Hard] Winning the Tournament'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/545a7x/20160923_challenge_284_hard_winning_the_tournament/
+54lu54:
+  solutions: []
+  title: '[2016-09-26] Challenge #285 [Easy] Cross Platform/Language Data Encoding
+    part 1'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/54lu54/20160926_challenge_285_easy_cross/
+54wihd:
+  solutions: []
+  title: '[2016-09-28] Challenge #285 [Intermediate] Cross Platform/Language Data
+    Encoding part 2'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/54wihd/20160928_challenge_285_intermediate_cross/
+557wyy:
+  solutions: []
+  title: '[2016-09-30] Challenge #285 [Hard] Math Proofs'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/557wyy/20160930_challenge_285_hard_math_proofs/
+55nior:
+  solutions: []
+  title: '[2016-10-03] Challenge #286 [Easy] Reverse Factorial'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/55nior/20161003_challenge_286_easy_reverse_factorial/
+55z8r6:
+  solutions: []
+  title: "[PSA] [Monthly Challenge #11 - October, 2016] - Procedural Ghosts and Jack-o-Lanterns!\
+    \ \u2022 /r/proceduralgeneration"
+  url: https://www.reddit.com/r/proceduralgeneration/comments/55xkud/monthly_challenge_11_october_2016_procedural/
+55zdxx:
+  solutions: []
+  title: '[2016-10-05] Challenge #286 [Intermediate] Zeckendorf Representations of
+    Positive Integers'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/55zdxx/20161005_challenge_286_intermediate_zeckendorf/
+56bh88:
+  solutions: []
+  title: '[2016-10-07] Challenge #286 [Hard] Rush Hour Solver'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/56bh88/20161007_challenge_286_hard_rush_hour_solver/
+56mfgz:
+  solutions:
+  - solution_body: "A little engineered to learn the language more.\n\n    #!/usr/bin/env\
+      \ perl6\n    \n    use v6;\n    \n    subset ValidFile of Str where {\n    \
+      \  .IO ~~ :f or warn \"Input file doesn't exist.\"\n    }\n    \n    multi MAIN(Str\
+      \ $cmd) {\n      simple_xargs($*IN, $cmd);\n    }\n    \n    multi MAIN(ValidFile\
+      \ $file, Str $cmd) {\n      simple_xargs($file.IO, $cmd);\n    }\n    \n   \
+      \ sub simple_xargs($input, $cmd) {\n      $input.lines.map: ->$line {\n    \
+      \    run $cmd, $line\n      }\n    }\n\nCouple of cool things:\n\n- Multiple\
+      \ dispatch on MAIN gives a simple way to design CLI. Providing no argument even\
+      \ prints a nice usage message (which can be overridden with your own `sub USAGE`).\n\
+      - Subset of a type to restrict it further. This can make the logic a bit free\
+      \ of clutter."
+    solution_url: https://www.reddit.com/r/dailyprogrammer/comments/56mfgz/weekly_26_mini_challenges/dbqy5a7
+  title: 'Weekly #26 - Mini Challenges'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/56mfgz/weekly_26_mini_challenges/
+56tbds:
+  solutions: []
+  title: '[2016-10-10] Challenge #287 [Easy] Kaprekar''s Routine'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/56tbds/20161010_challenge_287_easy_kaprekars_routine/
+576o8o:
+  solutions: []
+  title: '[2016-10-12] Challenge #287 [Intermediate] Mathagrams'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/576o8o/20161012_challenge_287_intermediate_mathagrams/
+57fzcv:
+  solutions: []
+  title: '[2016-10-14] Challenge #287 [Hard] Word Numbers'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/57fzcv/20161014_challenge_287_hard_word_numbers/
+57zcbm:
+  solutions: []
+  title: '[2016-10-17] Challenge #288 [Easy] Detecting Alliteration'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/57zcbm/20161017_challenge_288_easy_detecting_alliteration/
+589txl:
+  solutions: []
+  title: '[2016-10-19] Challenge #288 [Intermediate] Stars and Stripes and Vertices'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/589txl/20161019_challenge_288_intermediate_stars_and/
+58n2ca:
+  solutions: []
+  title: '[2016-10-21] Challenge #288 [Hard] Adjacent Numbers problems'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/58n2ca/20161021_challenge_288_hard_adjacent_numbers/
+5961a5:
+  solutions: []
+  title: '[2016-10-24] Challenge #289 [Easy] It''s super effective!'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5961a5/20161024_challenge_289_easy_its_super_effective/
+59mnxa:
+  solutions: []
+  title: '[2016-10-27] Challenge #289 [Intermediate] Metro trip planner'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/59mnxa/20161027_challenge_289_intermediate_metro_trip/
+59vml0:
+  solutions: []
+  title: '[2016-10-28] Challenge #289 [Hard] "Spot it!" cards generator'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/59vml0/20161028_challenge_289_hard_spot_it_cards/
+5aemnn:
+  solutions: []
+  title: '[2016-10-31] Challenge #290 [Easy] Kaprekar Numbers'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5aemnn/20161031_challenge_290_easy_kaprekar_numbers/
+5as91q:
+  solutions: []
+  title: '[2016-11-02] Challenge #290 [Intermediate] Blinking LEDs'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5as91q/20161102_challenge_290_intermediate_blinking_leds/
+5b5fc8:
+  solutions: []
+  title: '[2016-11-04] Challenge #290 [Hard] Gophers and Robot Dogs'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5b5fc8/20161104_challenge_290_hard_gophers_and_robot_dogs/
+5bn0b7:
+  solutions: []
+  title: '[2016-11-07] Challenge #291 [Easy] Goldilocks'' Bear Necessities'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5bn0b7/20161107_challenge_291_easy_goldilocks_bear/
+5c5jx9:
+  solutions: []
+  title: '[2016-11-09] Challenge #291 [Intermediate] Reverse Polish Notation Calculator'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5c5jx9/20161109_challenge_291_intermediate_reverse/
+5cetzo:
+  solutions: []
+  title: '[2016-11-11] Challenge #291 [Hard] Spaghetti Wiring'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5cetzo/20161111_challenge_291_hard_spaghetti_wiring/
+5d1l7v:
+  solutions: []
+  title: '[2016-11-15] Challenge #292 [Easy] Increasing range parsing'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5d1l7v/20161115_challenge_292_easy_increasing_range/
+5e4mde:
+  solutions: []
+  title: '[2016-11-21] Challenge #293 [Easy] Defusing the bomb'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5e4mde/20161121_challenge_293_easy_defusing_the_bomb/
+5emuuy:
+  solutions: []
+  title: '[2016-11-24] Challenge #293 [Intermediate] Defusing the second bomb'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5emuuy/20161124_challenge_293_intermediate_defusing_the/
+5etds6:
+  solutions: []
+  title: '[2016-11-25] Challenge #293 [Hard] Zombies 2 - Your Princess is in Another
+    Castle!'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5etds6/20161125_challenge_293_hard_zombies_2_your/
+5go843:
+  solutions:
+  - solution_body: "My solution in **Perl 6**, + bonus 1 and bonus 2\n\n    use v6;\n\
+      \n    multi MAIN (Str $tile where *.chars <= 20) {\n        my $res = '';\n\
+      \        for 'enable1.txt'.IO.lines -> $word {\n            next if $res.chars\
+      \ > $word.chars;\n            last if $res.chars == $tile.chars; \n        \
+      \    $res = $word if word_exists($tile, $word); \n        }\n        say \"\
+      word found \" ~ $res;\n\n    }\n\n    multi sub MAIN(Str $tile where $tile.chars\
+      \ == 7 , Str $word where $word.chars <= 7) {\n        say $word, word_exists($tile,\
+      \ $word) ?? \" found\" !! \" not found\", \" in '$tile'\";\n\n    }\n\n    sub\
+      \ word_exists(Str $tile, Str $word) returns Bool {\n        my @letters = $tile.comb;\n\
+      \        my Str $res = \"\";\n        for $word.comb -> $w {\n            my\
+      \ Int $i = @letters.first: $w, :k;\n            $i = @letters.first: '?', :k\
+      \ unless defined $i;;\n            next unless defined $i;\n            $res\
+      \ = $res ~ @letters[$i];\t\n            @letters = map @letters.keys : { @letters[$_]\
+      \ if $_ != $i }\n        }\n        return  $res.chars == $word.chars;\n   \
+      \ }"
+    solution_url: https://www.reddit.com/r/dailyprogrammer/comments/5go843/20161205_challenge_294_easy_rack_management_1/db46k5i
+  title: '[2016-12-05] Challenge #294 [Easy] Rack management 1'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5go843/20161205_challenge_294_easy_rack_management_1/
+5h40ml:
+  solutions: []
+  title: '[2016-12-07] Challenge #294 [Intermediate] Rack management 2'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5h40ml/20161207_challenge_294_intermediate_rack/
+5hcd0x:
+  solutions: []
+  title: '[2016-12-09] Challenge #294 [Hard] Rack management 3'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5hcd0x/20161209_challenge_294_hard_rack_management_3/
+5hy8sm:
+  solutions:
+  - solution_body: "My solution in **Perl 6**:\n\n    use v6;\n    \n    sub MAIN(Str\
+      \ $input1, Str $input2 where *.chars == $input1.chars) {\n\t    say $input1;\n\
+      \t    my @a = $input1.comb;\n\t    my @b = $input2.comb;\n\t    for  @a.keys\
+      \ -> $i {\n\t\t    @a[$i] = @b[$i] and say @a.join('') if @b[$i] ne @a[$i];\n\
+      \t    }\n    }\n"
+    solution_url: https://www.reddit.com/r/dailyprogrammer/comments/5hy8sm/20161212_challenge_295_easy_letter_by_letter/db5gnpk
+  title: '[2016-12-12] Challenge #295 [Easy] Letter by letter'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5hy8sm/20161212_challenge_295_easy_letter_by_letter/
+5ijb4z:
+  solutions: []
+  title: '[2016-12-15] Challenge #295 [Intermediate] Seperated Spouses'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5ijb4z/20161215_challenge_295_intermediate_seperated/
+5iq4ix:
+  solutions: []
+  title: '[2016-12-16] Challenge #295 [Hard] Advanced pacman'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5iq4ix/20161216_challenge_295_hard_advanced_pacman/
+5j6ggm:
+  solutions:
+  - solution_body: "My solution in *Perl 6*, with bonus 1 and 2\n\n    use v6;\n\n\
+      \    my @days = < first second third fourth fifth sixth seventh eighth ninth\
+      \ tenth eleventh twelfth>;\n    my @numbers = < a two three four five six seven\
+      \ eight nine ten eleven twelve>;\n    my @gifts = 'input.txt'.IO.lines;\n\n\
+      \    for [0 .. @days.end] -> $i {\n        say \"On the \" ~ @days[$i] ~ \"\
+      \ day of Christmas\";\n        say \"my true love sent to me: \";\n        if\
+      \ $i == 0 {\n            say @numbers[0] ~ @gifts[0] \n        }\n        else\
+      \ {\n            for [0..$i].reverse -> $j {\n                say \"and \" ~\
+      \ @numbers[$j] ~ \" \" ~ @gifts[$j] and next if $j == 0;\n                say\
+      \ @numbers[$j]~ \" \" ~ @gifts[$j]; \n            }\n        }\n        say\
+      \ \"\\n\";\t\t\n    }\n\n"
+    solution_url: https://www.reddit.com/r/dailyprogrammer/comments/5j6ggm/20161219_challenge_296_easy_the_twelve_days_of/dbk0hrx
+  title: '[2016-12-19] Challenge #296 [Easy] The Twelve Days of...'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5j6ggm/20161219_challenge_296_easy_the_twelve_days_of/
+5jpt8v:
+  solutions: []
+  title: '[2016-12-22] Challenge #296 [Intermediate] Intersecting Area Of Overlapping
+    Rectangles'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5jpt8v/20161222_challenge_296_intermediate_intersecting/
+5jxeal:
+  solutions: []
+  title: '[2016-12-23] Challenge #296 [Hard] Flood Fill Puzzle Game'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5jxeal/20161223_challenge_296_hard_flood_fill_puzzle_game/
+5l42dx:
+  solutions:
+  - solution_body: "Perl 6 with bonus 1:\n\n    use v6;                          \
+      \                                                       \n                 \
+      \                                                                          \
+      \ \n    sub MAIN(Bool :$reverse = False) {                                 \
+      \                     \n        say $reverse ?? tree-to-string($_.EVAL) !! string-to-tree($_).perl\
+      \ for $*IN.lines;  \n    }                                                 \
+      \                                      \n                                  \
+      \                                                          \n    grammar Grammar\
+      \ {                                                                       \n\
+      \        token expr { <term=word>* %% [ '(' ~ ')' <term=expr> ] }          \
+      \                  \n        token word { <[\\w\\h]>* }                    \
+      \                                        \n    }                           \
+      \                                                            \n            \
+      \                                                                          \
+      \      \n    class Actions {                                               \
+      \                          \n        method expr($/) { make $<term>\xBB.made\
+      \ }                                              \n        method word($/) {\
+      \ make ~$/ }                                                        \n    }\
+      \                                                                          \
+      \             \n                                                           \
+      \                                 \n    sub string-to-tree($s) {           \
+      \                                                     \n        Grammar.parse($s,\
+      \ :rule<expr>, :actions(Actions.new)).made;                         \n    }\
+      \                                                                          \
+      \             \n                                                           \
+      \                                 \n    sub tree-to-string($t) {           \
+      \                                                     \n        ($t.map: { $_\
+      \ ~~ Array ?? '(' ~ tree-to-string($_.list) ~ ')' !! ~$_ }).join;    \n    }\
+      \                                                                          \
+      \             \n                                                           \
+      \                                 \nNote: Yes, EVAL is evil and it should never\
+      \ be applied to input from stdin... except in toy examples :)"
+    solution_url: https://www.reddit.com/r/dailyprogrammer/comments/5l42dx/20161230_challenge_297_hard_parentheses_trees/dbx2qqx
+  title: '[2016-12-30] Challenge #297 [Hard] Parentheses trees'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5l42dx/20161230_challenge_297_hard_parentheses_trees/
+5llkbj:
+  solutions: []
+  title: '[2017-01-2] Challenge #298 [Easy] Too many Parentheses'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5llkbj/2017012_challenge_298_easy_too_many_parentheses/
+5m034l:
+  solutions: []
+  title: '[2017-01-04] Challenge #298 [Intermediate] Too many or too few Parentheses'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5m034l/20170104_challenge_298_intermediate_too_many_or/
+5mzr6x:
+  solutions: []
+  title: '[2017-01-09] Challenge #298 [Hard] Functional Maze solving'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5mzr6x/20170109_challenge_298_hard_functional_maze/
+5nciz5:
+  solutions: []
+  title: '[2017-01-11] Challenge #299 [Intermediate] From Maze to graph'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5nciz5/20170111_challenge_299_intermediate_from_maze_to/
+5nr86m:
+  solutions: []
+  title: '[2017-01-13] Challenge #299 [Hard] Functional Graph solving'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5nr86m/20170113_challenge_299_hard_functional_graph/
+5prdgb:
+  solutions: []
+  title: '[2017-01-23] Challenge #300 [Easy] Let''s make some noise'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5prdgb/20170123_challenge_300_easy_lets_make_some_noise/
+5q9cll:
+  solutions: []
+  title: '[2017-01-26] Challenge #300 [Easy/Intermediate] Let''s make some noise part
+    2'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5q9cll/20170126_challenge_300_easyintermediate_lets_make/
+5qp3ou:
+  solutions: []
+  title: '[2017-01-28] Challenge #300 [Hard] Let''s make some noise part 3'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5qp3ou/20170128_challenge_300_hard_lets_make_some_noise/
+5rlpz1:
+  solutions:
+  - solution_body: "Cheaty solution (Perl 6):\n\n    sub MAIN(Str $pattern is copy)\
+      \ {\n      $pattern.comb.unique.kv.map: -> $index, $char {\n        $pattern\
+      \ .= subst( / $char /, \"(\\\\w)\" );\n        $pattern .= subst( / $char /,\
+      \ \"\\$$index\", :g);\n      }\n      \"/usr/share/dict/words\".IO.lines.grep(/<$pattern>/)>>.say;\n\
+      \    }\n"
+    solution_url: https://www.reddit.com/r/dailyprogrammer/comments/5rlpz1/20170202_challenge_301_easyintemerdiate_looking/dd8fd2i
+  title: '[2017-02-02] Challenge #301 [Easy/Intemerdiate] Looking for patterns'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5rlpz1/20170202_challenge_301_easyintemerdiate_looking/
+5rt1cj:
+  solutions: []
+  title: '[2017-02-03] Challenge #301 [Hard] Guitar Tablature'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5rt1cj/20170203_challenge_301_hard_guitar_tablature/
+5seexn:
+  solutions:
+  - solution_body: "Perl 6 with bonus. This language is full of tricks.\n\n    my\
+      \ %periodic_table = \"./pt-data2.csv\".IO.lines.map: {\n      my $data = $_.split(/\"\
+      ,\"/);\n      $data[1].trim => ($data[2].trim,\n                        $data[3].comb(/<[\\\
+      d]+[\\.]>+/).[0]);\n    }\n    \n    my $elements = \"[{%periodic_table.keys>>.lc.join(\"\
+      |\")}]\";\n    slurp.lines.map: {\n      $_ ~~ m:ex/^ (<$elements>)+ $/;\n \
+      \     my $sorted = ($/.flat.sort: {\n        [+] gather for $_.flat { take %periodic_table{~$_.tc}[1];\
+      \ }\n      }).reverse.[0];\n      say \"{$sorted[0]>>.tc.join} ({(%periodic_table{~$_.tc}[0]\
+      \ for $sorted.flat).join(\" \")})\";\n    }\n"
+    solution_url: https://www.reddit.com/r/dailyprogrammer/comments/5seexn/20170206_challenge_302_easy_spelling_with/ddezgqo
+  title: '[2017-02-06] Challenge #302 [Easy] Spelling with Chemistry'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5seexn/20170206_challenge_302_easy_spelling_with/
+5st2so:
+  solutions: []
+  title: '[2017-02-08] Challenge #302 [Intermediate] ASCII Histogram Maker: Part 1
+    - The Simple Bar Chart'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5st2so/20170208_challenge_302_intermediate_ascii/
+5t7l07:
+  solutions: []
+  title: '[2017-02-10] Challenge #302 [Hard] ASCII Histogram Maker: Part 2 - The Proper
+    Histogram'
+  url: https://www.reddit.com/r/dailyprogrammer/comments/5t7l07/20170210_challenge_302_hard_ascii_histogram_maker/
